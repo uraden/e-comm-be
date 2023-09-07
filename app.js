@@ -22,7 +22,7 @@ const errorHandleMiddleWare = require('./middleware/error-handler')
 
 app.use(morgan('tiny'));
 app.use(express.json());
-app.use(cookieParser());
+app.use(cookieParser(process.env.JWT_SECRET));
 
 app.get('/', (req, res) => {
     console.log(req.cookies)
@@ -35,7 +35,7 @@ app.use('/api/v1/auth', authRouter);
 app.use(notFoundMiddleware)
 app.use(errorHandleMiddleWare)
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3000;
 const start = async () => {
   try {
     await connectDB(process.env.MONGO_URI)
