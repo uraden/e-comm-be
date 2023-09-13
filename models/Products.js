@@ -71,4 +71,10 @@ ProductSchema.virtual('reviews', {
     justOne: false
 });
 
+// Delete review from the deteled prouduct
+
+ProductSchema.pre('remove', async function(next){
+    await this.model('Review').deleteMany({product: this._id})
+})
+
 module.exports = mongoose.model('Product', ProductSchema);
